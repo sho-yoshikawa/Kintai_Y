@@ -7,12 +7,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
 
     await new Promise(s => setTimeout(s, 1000));
-    if (navigator.clipboard) {
-        navigator.clipboard.writeText(worktime);
-        console.log("worktime copied.");
-    } else {
-        alert("copy function not supported.");
-    }
+    var text = '<div id="copy-body" style="padding: 20px">' + worktime + '</div>';
+    var element = document.getElementById('copy-body');
+    element.outerHTML = text;
 });
 
 window.addEventListener("load", async function () {
@@ -36,6 +33,14 @@ window.addEventListener("load", async function () {
 
     // 末尾カンマ削除
     worktime = worktime.slice(0, -1);
+    await new Promise(s => setTimeout(s, 1000));
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(worktime);
+        console.log("worktime copied.");
+    } else {
+        alert("copy function not supported, worktime will be output to console.");
+    }
+
     await chrome.storage.local.set({'worktime': worktime}, function () {
         console.log(worktime);
     });

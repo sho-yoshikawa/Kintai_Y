@@ -12,9 +12,16 @@
       "content.js"
     ]
   }],
+  "icons" : {
+    "48" : "LY_logo.png"
+  },
   "permissions": ["storage"],
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon" : {
+      "48" : "LY_logo.png"
+    },
+    "default_title": "LY勤怠実績コレクタ"
   },
   "commands": {
     "_execute_action": {
