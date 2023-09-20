@@ -17,7 +17,6 @@
   },
   "permissions": ["storage"],
   "action": {
-    "default_popup": "popup.html",
     "default_icon" : {
       "48" : "LY_logo.png"
     },

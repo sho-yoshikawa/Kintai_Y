@@ -1,17 +1,3 @@
-document.addEventListener("DOMContentLoaded", async function () {
-    var worktime;
-
-    await chrome.storage.local.get("worktime", function (value) {
-        worktime = value.worktime;
-        console.log(worktime);
-    });
-
-    await new Promise(s => setTimeout(s, 1000));
-    var text = '<div id="copy-body" style="padding: 20px">' + worktime + '</div>';
-    var element = document.getElementById('copy-body');
-    element.outerHTML = text;
-});
-
 window.addEventListener("load", async function () {
     // load後も読み込みが発生しているためsleep
     await new Promise(s => setTimeout(s, 2000));
@@ -26,9 +12,6 @@ window.addEventListener("load", async function () {
         start = start_worktimes[i].value.toString();
         end = end_worktimes[i].value.toString();
         worktime += start + "," + end + ",";
-        // if (start && end) {
-        //     worktime += start + "," + end + ",";
-        // }
     }
 
     // 末尾カンマ削除
