@@ -5,6 +5,7 @@ window.addEventListener("load", async function () {
     var start_worktimes = document.querySelectorAll('[id$="result_start_time_text"]');
     var end_worktimes = document.querySelectorAll('[id$="result_end_time_text"]');
 
+    // カンマ区切りで読み込む
     var worktime = "";
     var start = "";
     var end = "";
@@ -17,14 +18,27 @@ window.addEventListener("load", async function () {
     // 末尾カンマ削除
     worktime = worktime.slice(0, -1);
     await new Promise(s => setTimeout(s, 1000));
-    if (navigator.clipboard) {
-        navigator.clipboard.writeText(worktime);
-        console.log("worktime copied.");
-    } else {
-        alert("copy function not supported, worktime will be output to console.");
-    }
 
-    await chrome.storage.local.set({'worktime': worktime}, function () {
-        console.log(worktime);
+    // ボタン実装
+    var e = document.getElementsByClassName("js-sticky-header").item(0);
+    var submit_button = document.createElement('input');
+    submit_button.id = "submit-csv";
+    submit_button.type = "button";
+    submit_button.value = "勤怠実績をCSVで読み込む";
+    e.appendChild(submit_button);
+
+    submit_button.addEventListener("click", function () {
+        // コピー可能か確認
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(worktime);
+            console.log("worktime copied.");
+        } else {
+            alert("copy function not supported, worktime will be output to console.");
+        }
     });
+
+    // popup.htmlに使う場合はstorageに保存
+    // await chrome.storage.local.set({'worktime': worktime}, function () {
+    //     console.log(worktime);
+    // });
 });
